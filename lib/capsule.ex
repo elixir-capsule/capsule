@@ -1,0 +1,2 @@
+defmodule Capsule do
+end
