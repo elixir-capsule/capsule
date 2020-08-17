@@ -7,7 +7,7 @@ Not safe for production. Probably NSFW.
 
 ## roadmap
 
-* at least 1 test
+* ~at least 1 test~
 * more tests
 * more storages
 * more uploader implementations
