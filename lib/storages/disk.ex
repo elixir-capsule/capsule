@@ -4,12 +4,14 @@ defmodule Capsule.Storages.Disk do
   @behaviour Storage
 
   @impl Storage
-  def put(upload) do
+  def put(upload, opts \\ []) do
     with location <- Upload.location(upload),
          destination <-
-           Application.fetch_env!(:capsule, __MODULE__)[:root_dir]
+           config()[:root_dir]
            |> Path.join(location),
-         true <- !File.exists?(destination) || {:error, "File already exists at upload location"},
+         true <-
+           !File.exists?(destination) || opts[:force] ||
+             {:error, "File already exists at upload location"},
          {:ok, io} <- Upload.read(upload) do
       destination |> Path.dirname() |> File.mkdir_p!()
 
@@ -37,4 +39,6 @@ defmodule Capsule.Storages.Disk do
       {:error, error} -> {:error, "Could not remove file: #{error}"}
     end
   end
+
+  defp config(), do: Application.fetch_env!(:capsule, __MODULE__)
 end

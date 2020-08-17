@@ -1,5 +1,5 @@
 defprotocol Capsule.Upload do
-  @spec read(struct()) :: iodata()
+  @spec read(struct()) :: {:ok, iodata()} | {:error, String.t()}
   def read(upload)
 
   @spec location(struct()) :: Path.t()
