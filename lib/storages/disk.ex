@@ -38,5 +38,8 @@ defmodule Capsule.Storages.Disk do
     end
   end
 
+  @impl Storage
+  def open(%Encapsulation{id: id}), do: File.read(id)
+
   defp config(), do: Application.fetch_env!(:capsule, __MODULE__)
 end
