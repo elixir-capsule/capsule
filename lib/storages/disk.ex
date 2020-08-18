@@ -17,11 +17,9 @@ defmodule Capsule.Storages.Disk do
 
       File.write!(destination, io)
 
-      {:ok,
-       %Encapsulation{
-         id: destination,
-         metadata: %{name: Path.basename(destination)}
-       }}
+      encapsulation = %Encapsulation{id: destination, storage: __MODULE__}
+
+      {:ok, encapsulation}
     end
     |> case do
       {:error, error} ->
