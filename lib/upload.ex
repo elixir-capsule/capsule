@@ -14,5 +14,5 @@ defimpl Capsule.Upload, for: URI do
     end
   end
 
-  def destination(%{path: path}), do: path
+  def destination(%{path: path}), do: Path.basename(path)
 end
