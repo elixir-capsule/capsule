@@ -10,7 +10,7 @@ defimpl Capsule.Upload, for: URI do
   def read(uri) do
     case :httpc.request(uri |> URI.to_string() |> String.to_charlist()) do
       {:ok, {{'HTTP/1.1', 200, 'OK'}, _headers, body}} -> {:ok, body}
-      {:error, _} = error_tuple -> error_tuple
+      {:error, {reason}} -> {:error, reason}
     end
   end
 
