@@ -7,7 +7,7 @@ defmodule Capsule.Storages.DiskTest do
 
   describe "put/1" do
     test "returns success tuple" do
-      assert {:ok, %Encapsulation{}} = Disk.put(%MockUpload{})
+      assert {:ok, %Encapsulation{id: "hi"}} = Disk.put(%MockUpload{})
 
       on_exit(fn -> File.rm!("tmp/hi") end)
     end
@@ -44,6 +44,28 @@ defmodule Capsule.Storages.DiskTest do
       File.write!("tmp/name", "data")
 
       assert {:ok, "data"} = Disk.open(%Encapsulation{id: "tmp/name"})
+
+      on_exit(fn -> File.rm!("tmp/name") end)
+    end
+  end
+
+  describe "move/1" do
+    test "returns success tuple with data" do
+      File.write!("tmp/path", "data")
+
+      assert {:ok, %Encapsulation{id: "new_path"}} =
+               Disk.move(%Encapsulation{id: "/path"}, "new_path")
+
+      on_exit(fn -> File.rm!("tmp/new_path") end)
+    end
+
+    test "creates path" do
+      File.write!("tmp/path", "data")
+
+      assert {:ok, %Encapsulation{id: "subdir/new_path"}} =
+               Disk.move(%Encapsulation{id: "path"}, "subdir/new_path")
+
+      on_exit(fn -> File.rm!("tmp/subdir/new_path") end)
     end
   end
 end
