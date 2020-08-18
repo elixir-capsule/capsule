@@ -5,14 +5,14 @@ defmodule Capsule.Storages.Disk do
 
   @impl Storage
   def put(upload, opts \\ []) do
-    with location <- Upload.location(upload),
+    with destination <- Upload.destination(upload),
          destination <-
            config()[:root_dir]
-           |> Path.join(location),
+           |> Path.join(destination),
          true <-
            !File.exists?(destination) || opts[:force] ||
-             {:error, "File already exists at upload location"},
-         {:ok, io} <- Upload.read(upload) do
+             {:error, "File already exists at upload destination"},
+         {:ok, io} <- Upload.contents(upload) do
       destination |> Path.dirname() |> File.mkdir_p!()
 
       File.write!(destination, io)

@@ -1,9 +1,9 @@
 defmodule Capsule.MockUpload do
-  defstruct content: "Hi, I'm a file", location: "hi"
+  defstruct content: "Hi, I'm a file", destination: "hi"
 
   defimpl Capsule.Upload do
-    def read(upload), do: {:ok, upload.content}
+    def contents(upload), do: {:ok, upload.content}
 
-    def location(upload), do: upload.location
+    def destination(upload), do: upload.destination
   end
 end
