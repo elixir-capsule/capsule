@@ -7,13 +7,21 @@ defmodule Capsule.Storages.DiskTest do
 
   describe "put/1" do
     test "returns success tuple" do
-      assert {:ok, %Encapsulation{id: "hi"}} = Disk.put(%MockUpload{})
+      assert {:ok, %Encapsulation{id: "/hi"}} = Disk.put(%MockUpload{})
 
       on_exit(fn -> File.rm!("tmp/hi") end)
     end
 
     test "writes file to destination" do
       Disk.put(%MockUpload{destination: "subdir/name"})
+
+      assert File.exists?("tmp/subdir/name")
+
+      on_exit(fn -> File.rm!("tmp/subdir/name") end)
+    end
+
+    test "writes file to destination with prefix" do
+      Disk.put(%MockUpload{destination: "name"}, prefix: "subdir")
 
       assert File.exists?("tmp/subdir/name")
 
