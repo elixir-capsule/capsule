@@ -1,9 +1,7 @@
 # capsule
-Upload and store files in Elixir apps.
 
-~Totally naked, no tests.~ Now with some tests!
+Upload and store files in Elixir apps with minimal (currently zero) dependencies.
 
-NSFP
 
 ## take the purple pill
 
@@ -15,26 +13,17 @@ Capsule intentionally strips file storage logic down to its most composable part
     |> Multi.run(:upload, fn _, _ -> Disk.put(URI.parse(url)) end)
     |> Multi.insert(:attachment, fn %{upload: file_data} ->
       Source.changeset(%Attachment{}, %{
-        file_data: file_data |> Map.from_struct(),
-        name: file_data.metadata.name,
-        file_type: if(Path.extname(file_data.id) == ".pdf", do: :pdf, else: :txt)
+        file_data: file_data |> Capsule.add_metadata(%{name: file_data.metadata.name}) |> Map.from_struct(),
       })
     end)
     |> Repo.transaction()
-    |> case do
-      {:ok, %{source: source}} ->
-        {:ok, source}
-
-      {:error, :upload, error, _changes} ->
-        {:error, "File upload error: #{error}"}
-    end
   end
 ```
 
-## roadmap
+Then to access your file:
 
-* ~at least 1 test~
-* more tests
-* more storages
-* more uploader implementations
-* better readme
+```
+%Attachment{file_data: file} = attachment
+
+{:ok, iodata} = Capsule.open(file)
+```

@@ -10,4 +10,15 @@ defmodule CapsuleTest do
                Capsule.add_metadata(%Encapsulation{metadata: %{a: 1}}, %{b: 2})
     end
   end
+
+  describe "open/1" do
+    test "opens file in storage" do
+      File.write!("tmp/name", "data")
+
+      assert {:ok, "data"} =
+               Capsule.open(%Encapsulation{id: "tmp/name", storage: "Capsule.Storages.Disk"})
+
+      on_exit(fn -> File.rm!("tmp/name") end)
+    end
+  end
 end
