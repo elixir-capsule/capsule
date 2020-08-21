@@ -3,6 +3,7 @@
 Upload and store files in Elixir apps with minimal (currently zero) dependencies.
 
 [![Hex.pm](https://img.shields.io/hexpm/v/capsule.svg)]()
+![](https://github.com/tfwright/capsule/workflows/CI/badge.svg)
 
 
 ## take the purple pill
