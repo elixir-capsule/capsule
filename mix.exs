@@ -11,7 +11,7 @@ defmodule Capsule.MixProject do
       deps: deps(),
       elixirc_paths: elixirc_paths(Mix.env()),
       name: "Capsule",
-      source_url: "https://github.com/tfwright/capsule",
+      source_url: "https://github.com/elixir-capsule/capsule",
       package: package()
     ]
   end
@@ -35,8 +35,9 @@ defmodule Capsule.MixProject do
 
   defp package do
     [
+      ["Thomas Floyd Wright"],
       licenses: ["Apache-2.0"],
-      links: %{"GitHub" => "https://github.com/tfwright/capsule"}
+      links: %{"GitHub" => "https://github.com/elixir-capsule/capsule"}
     ]
   end
 end
