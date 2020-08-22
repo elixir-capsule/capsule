@@ -33,7 +33,7 @@ Then to access your file:
 ```
 %Attachment{file_data: file} = attachment
 
-{:ok, iodata} = Capsule.open(file)
+{:ok, contents} = Capsule.open(file)
 ```
 
 <sup>1</sup> *See below for optional integration with Ecto.*
