@@ -40,7 +40,7 @@ There are three main concepts in capsule: storage, upload, and the special one, 
 
 ### storage
 
-A "storage" is [behaviour](https://elixirschool.com/en/lessons/advanced/behaviours/) that implements the following "file-like" callbacks:
+A "storage" is a [behaviour](https://elixirschool.com/en/lessons/advanced/behaviours/) that implements the following "file-like" callbacks:
 
 * open
 * put
