@@ -89,4 +89,8 @@ Note: you'll still need to take care of cleaning up the old file (or pass the wo
 Disk.delete(old_busted_encapsulation)
 ```
 
+## integrations
+
+* [Ecto](https://github.com/elixir-capsule/capsule_ecto)
+
 That's it! Happy uploading.
