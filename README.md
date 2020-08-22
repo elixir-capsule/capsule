@@ -7,7 +7,7 @@ Upload and store files in Elixir apps with minimal (currently zero) dependencies
 
 :warning: Capsule is still in active development, and is not production ready. Accepting file uploads introduces security vulnerabilities. Use at your own risk.
 
-## take the purple pill
+## Not-so-jagged little pill
 
 Capsule intentionally strips file storage logic down to its most composable parts and lets you decide how you want to use them. Here's a complete working example with an Ecto schema, that saves the file onto a local file system and extracts some metadata:
 
