@@ -5,7 +5,7 @@ defmodule Capsule.MixProject do
     [
       app: :capsule,
       description: "Uploaded file management for Elixir",
-      version: "0.2.0",
+      version: "0.3.0",
       elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -35,7 +35,7 @@ defmodule Capsule.MixProject do
 
   defp package do
     [
-      ["Thomas Floyd Wright"],
+      maintainers: ["Thomas Floyd Wright"],
       licenses: ["Apache-2.0"],
       links: %{"GitHub" => "https://github.com/elixir-capsule/capsule"}
     ]
