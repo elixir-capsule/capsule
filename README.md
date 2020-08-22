@@ -56,7 +56,7 @@ Upload is a [protocol](https://elixir-lang.org/getting-started/protocols.html) c
 * contents
 * name
 
-A storage uses this interface to figure how to extract the file data from a given struct and where to put it. Currently capsule only implements the upload protocol for the URI module, because URI is a standard lib. The following is the example of how you might implement the protocol for Plug.Upload:
+A storage uses this interface to figure how to extract the file data from a given struct and how to identify it. Currently capsule only implements the upload protocol for the URI module, because URI is a standard lib. The following is the example of how you might implement the protocol for `Plug.Upload`:
 
 ```
 defimpl Capsule.Upload, for: Plug.Upload do
@@ -83,7 +83,7 @@ old_busted_encapsulation = Disk.put(upload)
 new_shiny_encapsulation = YourCoolStorage.put(encapsulation)
 ```
 
-Note: you'll still need to take care of cleaning up the old file (or some poor async Task you probably underpay):
+Note: you'll still need to take care of cleaning up the old file (or pass the work on to some poor async Task):
 
 ```
 Disk.delete(old_busted_encapsulation)
