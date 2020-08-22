@@ -16,3 +16,10 @@ defimpl Capsule.Upload, for: URI do
 
   def name(%{path: path}), do: Path.basename(path)
 end
+
+defimpl Capsule.Upload, for: Capsule.Encapsulation do
+  defdelegate contents(encapsulation), to: Capsule, as: :open
+
+  def name(%{metadata: %{name: name}}), do: name
+  def name(%{id: id}), do: id
+end
