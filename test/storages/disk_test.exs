@@ -12,16 +12,16 @@ defmodule Capsule.Storages.DiskTest do
       on_exit(fn -> File.rm!("tmp/hi") end)
     end
 
-    test "writes file to destination" do
-      Disk.put(%MockUpload{destination: "subdir/name"})
+    test "writes file to path from name" do
+      Disk.put(%MockUpload{name: "subdir/name"})
 
       assert File.exists?("tmp/subdir/name")
 
       on_exit(fn -> File.rm!("tmp/subdir/name") end)
     end
 
-    test "writes file to destination with prefix" do
-      Disk.put(%MockUpload{destination: "name"}, prefix: "subdir")
+    test "writes file to path with prefix" do
+      Disk.put(%MockUpload{name: "name"}, prefix: "subdir")
 
       assert File.exists?("tmp/subdir/name")
 
@@ -31,7 +31,7 @@ defmodule Capsule.Storages.DiskTest do
     test "returns error when file already exists" do
       File.write!("tmp/name", "data")
 
-      assert {:error, _} = Disk.put(%MockUpload{destination: "name"})
+      assert {:error, _} = Disk.put(%MockUpload{name: "name"})
 
       on_exit(fn -> File.rm!("tmp/name") end)
     end
@@ -39,7 +39,7 @@ defmodule Capsule.Storages.DiskTest do
     test "overwrites existing file when force is set to true" do
       File.write!("tmp/name", "data")
 
-      Disk.put(%MockUpload{destination: "name", content: "new"}, force: true)
+      Disk.put(%MockUpload{name: "name", content: "new"}, force: true)
 
       assert "new" = File.read!("tmp/name")
 

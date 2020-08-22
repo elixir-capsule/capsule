@@ -5,7 +5,7 @@ defmodule Capsule.Storages.Disk do
 
   @impl Storage
   def put(upload, opts \\ []) do
-    with path <- Path.join(opts[:prefix] || "/", Upload.destination(upload)),
+    with path <- Path.join(opts[:prefix] || "/", Upload.name(upload)),
          destination <- qualified_path(path),
          true <-
            !File.exists?(destination) || opts[:force] ||

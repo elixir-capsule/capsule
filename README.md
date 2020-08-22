@@ -5,7 +5,7 @@ Upload and store files in Elixir apps with minimal (currently zero) dependencies
 [![Hex.pm](https://img.shields.io/hexpm/v/capsule.svg)]()
 ![](https://github.com/tfwright/capsule/workflows/CI/badge.svg)
 
-:warning: Capsule is still in active development, and is not production ready. Accepting file uploads introduces security vulerabilities. Use at your own risk. 
+:warning: Capsule is still in active development, and is not production ready. Accepting file uploads introduces security vulerabilities. Use at your own risk.
 
 ## take the purple pill
 
@@ -54,7 +54,7 @@ Currently, capsule only supports the Disk storage, although Memory is planned. B
 Upload is a [protocol](https://elixir-lang.org/getting-started/protocols.html) consisting of the following two functions:
 
 * contents
-* destination
+* name
 
 A storage uses this interface to figure how to extract the file data from a given struct and where to put it. Currently capsule only implements the upload protocol for the URI module, because URI is a standard lib. The following is the example of how you might implement the protocol for Plug.Upload:
 
@@ -67,7 +67,7 @@ defimpl Capsule.Upload, for: Plug.Upload do
     end
   end
 
-  def destination(%{filename: name}), do: name
+  def name(%{filename: name}), do: name
 end
 ```
 
