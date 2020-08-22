@@ -11,7 +11,7 @@ Upload and store files in Elixir apps with minimal (currently zero) dependencies
 
 Capsule intentionally strips file storage logic down to its most composable parts and lets you decide how you want to use them. It is intentionally agnostic about versions, transformation, validations, etc. Most of the convenience offered by other libraries around these features comes at the cost of locking in dependence on specific tools and hiding complexity. Capsule puts a premium on simplicity and explicitness.
 
-So what does it do? Here's a theoretical example with an Ecto<sup>1</sup> schema, that saves the file onto a local file system and extracts some metadata:
+So what does it do? Here's a theoretical example of use with an Ecto<sup>1</sup> schema, that saves the file onto a local file system and extracts some metadata before attaching the file:
 
 ```
   def create_attachment(url) do
