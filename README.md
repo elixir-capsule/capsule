@@ -47,7 +47,7 @@ A "storage" is [behaviour](https://elixirschool.com/en/lessons/advanced/behaviou
 * move
 * delete
 
-Currently, capsule only supports the Disk storage, although Memory is planned. But implementing your own storage is as easy as creating a module that quacks this way.
+Currently, capsule only supports the Disk storage. But implementing your own storage is as easy as creating a module that quacks this way.
 
 ### upload
 
