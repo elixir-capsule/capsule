@@ -8,7 +8,9 @@ end
 
 defimpl Capsule.Upload, for: URI do
   def contents(name) do
-    case :httpc.request(name |> URI.to_string() |> String.to_charlist()) do
+    case :httpc.request(:get, {name |> URI.to_string() |> String.to_charlist(), []}, [],
+           body_format: :binary
+         ) do
       {:ok, {{'HTTP/1.1', 200, 'OK'}, _headers, body}} -> {:ok, body}
       {:error, {reason}} -> {:error, reason}
     end

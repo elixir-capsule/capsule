@@ -5,11 +5,13 @@ Upload and store files in Elixir apps with minimal (currently zero) dependencies
 [![Hex.pm](https://img.shields.io/hexpm/v/capsule.svg)]()
 ![](https://github.com/elixir-capsule/capsule/workflows/CI/badge.svg)
 
-:warning: Capsule is still in active development, and is not production ready. Accepting file uploads introduces security vulnerabilities. Use at your own risk.
+:warning: Capsule is experimental and still in active development---it is *not* production ready. Accepting file uploads introduces security vulnerabilities. The API is *expected* to change. Use at your own risk.
 
 ## Not-so-jagged little pill
 
-Capsule intentionally strips file storage logic down to its most composable parts and lets you decide how you want to use them. Here's a complete working example with an Ecto schema, that saves the file onto a local file system and extracts some metadata:
+Capsule intentionally strips file storage logic down to its most composable parts and lets you decide how you want to use them. It is intentionally agnostic about versions, transformation, validations, etc. Most of the convenience offered by other libraries around these features comes at the cost of locking in dependence on specific tools and hiding complexity. Capsule puts a premium on simplicity and explicitness.
+
+So what does it do? Here's a theoretical example with an Ecto<sup>1</sup> schema, that saves the file onto a local file system and extracts some metadata:
 
 ```
   def create_attachment(url) do
@@ -33,6 +35,8 @@ Then to access your file:
 
 {:ok, iodata} = Capsule.open(file)
 ```
+
+<sup>1</sup> *See below for optional integration with Ecto.*
 
 ## concepts
 

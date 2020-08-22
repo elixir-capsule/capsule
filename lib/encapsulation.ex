@@ -1,3 +1,3 @@
 defmodule Capsule.Encapsulation do
-  defstruct [:id, :storage, metadata: %{}]
+  defstruct [:id, :storage, :size, metadata: %{}]
 end

@@ -10,12 +10,12 @@ defmodule Capsule.Storages.Disk do
          true <-
            !File.exists?(destination) || opts[:force] ||
              {:error, "File already exists at upload destination"},
-         {:ok, io} <- Upload.contents(upload) do
+         {:ok, contents} <- Upload.contents(upload) do
       create_path!(destination)
 
-      File.write!(destination, io)
+      File.write!(destination, contents)
 
-      encapsulation = %Encapsulation{id: path, storage: __MODULE__}
+      encapsulation = %Encapsulation{id: path, size: byte_size(contents), storage: __MODULE__}
 
       {:ok, encapsulation}
     end
