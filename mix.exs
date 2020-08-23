@@ -27,7 +27,7 @@ defmodule Capsule.MixProject do
   defp deps do
     [
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
-      {:dialyxir, "~> 1.0", only: :dev, runtime: false, plt_cor_path: "_build/#{Mix.env()}"}
+      {:dialyxir, "~> 1.0", only: :dev, runtime: false}
     ]
   end
 
