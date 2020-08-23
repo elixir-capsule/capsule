@@ -51,7 +51,7 @@ A "storage" is a [behaviour](https://elixirschool.com/en/lessons/advanced/behavi
 * move
 * delete
 
-Currently, capsule only supports the Disk storage. But implementing your own storage is as easy as creating a module that quacks this way.
+Currently, capsule only supports the [Disk storage](#disk). But implementing your own storage is as easy as creating a module that quacks this way.
 
 ### upload
 
@@ -92,6 +92,25 @@ Note: you'll still need to take care of cleaning up the old file (or pass the wo
 ```
 Disk.delete(old_busted_encapsulation)
 ```
+
+## storages
+
+Every capsule storage should behave in a similar, predictable, and thus transparent way. For example, every storage must implement `put/1`. However, a storage may implement `put/2` to allow any additional information it needs to be *optionally* passed. Additionally, a storage may respect specific configuration and retrieve the information that way.
+
+Capsule ships with storage for saving uploads to the local filesystem: `Disk`. Documentation for configuration and options it supports is below.
+
+### Disk
+
+Since it is possible for files with the same name to be uploaded multiple times, Disk needs some additional info to uniquely identify the file. Disk *does not* overwrite files with the same name by default. To ensure an upload can be stored, the combination of the `Upload.name` and `prefix` should be unique.
+
+#### configuration
+
+* To set the root directory where files will be stored: `Application.put_env(:capsule, Capsule.Storages.Disk, root_dir: "tmp")`
+
+#### options
+
+* `prefix`: This should be a valid system path that will be appended to the root. If it does not exist, Disk will create it.
+* `force`: If this option is set to a truthy value, Disk will overwrite any existing file at the derived path. Use with caution! :warning:
 
 ## integrations
 
