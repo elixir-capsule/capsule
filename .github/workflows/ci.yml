@@ -22,3 +22,27 @@ jobs:
       run: mkdir tmp
     - name: Run Tests
       run: mix test
+
+  dialyzer:
+    runs-on: ubuntu-latest
+
+    container:
+      image: bitwalker/alpine-elixir:1.10.4
+
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/cache@v1
+      with:
+        path: deps
+        key: dependencies-${{ hashFiles('mix.lock') }}
+    - uses: actions/cache@v1
+      with:
+        path: _build
+        key: build-${{ hashFiles('mix.lock') }}
+    - name: Install Dependencies
+      run: |
+        mix local.rebar --force
+        mix local.hex --force
+        mix deps.get
+    - name: Run mix dialyzer
+      run: mix dialyzer
