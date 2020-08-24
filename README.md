@@ -60,20 +60,7 @@ Upload is a [protocol](https://elixir-lang.org/getting-started/protocols.html) c
 * contents
 * name
 
-A storage uses this interface to figure how to extract the file data from a given struct and how to identify it. Currently capsule only implements the upload protocol for the URI module, because URI is a standard lib. The following is the example of how you might implement the protocol for `Plug.Upload`:
-
-```
-defimpl Capsule.Upload, for: Plug.Upload do
-  def contents(%{path: path}) do
-    case File.read(path) do
-      {:error, reason} -> {:error, "Could not read path: #{reason}"}
-      success_tuple -> success_tuple
-    end
-  end
-
-  def name(%{filename: name}), do: name
-end
-```
+A storage uses this interface to figure how to extract the file data from a given struct and how to identify it. Currently capsule only implements the upload protocol for URI and Capsule.Encapsulation. See the [uploads section][#uploads] for example of how to implement the protocol for other modules.
 
 *obamaface.jpg*
 
@@ -109,6 +96,46 @@ Since it is possible for files with the same name to be uploaded multiple times,
 
 * `prefix`: This should be a valid system path that will be appended to the root. If it does not exist, Disk will create it.
 * `force`: If this option is set to a truthy value, Disk will overwrite any existing file at the derived path. Use with caution! :warning:
+
+## uploads
+
+### URI
+
+This is useful for transferring files already hosted elsewhere, for example in cloud storage not controlled by your application, or a [TUS server](https://tus.io/).
+
+You can use it to allow users to post a url string in lieu of downloading and reuploading a file. A Phoenix controller action implementing this feature might look like this:
+
+```
+def attach(conn, %{"attachment" => %{"url" => url}}) when url != "" do
+  URI.parse(url)
+  |> Disk.put(upload)
+
+  # ...redirect, etc
+end
+```
+
+### Capsule.Encapsulation
+
+Encapsulations implement the upload protocol by simply delegating the functions to their storage.
+
+### Other examples
+
+You are encouraged to add your own protocols as you need them.
+
+The following is the example of how you might implement the protocol for `Plug.Upload`:
+
+```
+defimpl Capsule.Upload, for: Plug.Upload do
+  def contents(%{path: path}) do
+    case File.read(path) do
+      {:error, reason} -> {:error, "Could not read path: #{reason}"}
+      success_tuple -> success_tuple
+    end
+  end
+
+  def name(%{filename: name}), do: name
+end
+```
 
 ## integrations
 
