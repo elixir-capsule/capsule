@@ -79,19 +79,17 @@ end
 
 ### encapsulation
 
-Encapsulations are the mediators between storages and uploads. They represent the result of `put`ting an upload into a storage. However, they also implement the upload protocol themselves, which means moving a file from one storage to another is as easy as this:
+Encapsulations are the mediators between storages and uploads. They represent the result of `put`ting an upload into a storage. They contain a unique id, the name of the storage to which the file was uploaded, the size, and a map of user defined metadata.
 
-```
-old_busted_encapsulation = Disk.put(upload)
+`%{id: "/path/to/file.jpg", storage: "Capsule.Storages.Disk", size: 34100, metadata: %{}} = Disk.put(some_upload)`
 
-new_shiny_encapsulation = YourCoolStorage.put(encapsulation)
-```
+Encapsulation also implements the upload protocol, which means moving a file from one storage to another is as easy as this:
 
-Note: you'll still need to take care of cleaning up the old file (or pass the work on to some poor async Task):
+`%{id: "new-id", storage: "YourApp.YourStorage", size: 34100, metadata: %{}} = YourStorage.put(%{id: "/path/to/file.jpg", storage: "Capsule.Storages.Disk", size: 34100, metadata: %{}})`
 
-```
-Disk.delete(old_busted_encapsulation)
-```
+Note: you'll still need to take care of cleaning up the old file:
+
+`Disk.delete(%{id: "/path/to/file.jpg", storage: "Capsule.Storages.Disk", size: 34100, metadata: %{}})`
 
 ## storages
 
