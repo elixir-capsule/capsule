@@ -60,9 +60,7 @@ Upload is a [protocol](https://elixir-lang.org/getting-started/protocols.html) c
 * contents
 * name
 
-A storage uses this interface to figure how to extract the file data from a given struct and how to identify it. Currently capsule only implements the upload protocol for URI and Capsule.Encapsulation. See the [uploads section][#uploads] for example of how to implement the protocol for other modules.
-
-*obamaface.jpg*
+A storage uses this interface to figure how to extract the file data from a given struct and how to identify it. Currently capsule only implements the upload protocol for URI and Capsule.Encapsulation. See the [uploads section](#uploads) for example of how to implement the protocol for other modules.
 
 ### encapsulation
 
@@ -136,6 +134,8 @@ defimpl Capsule.Upload, for: Plug.Upload do
   def name(%{filename: name}), do: name
 end
 ```
+
+*obamaface.jpg*
 
 ## integrations
 
