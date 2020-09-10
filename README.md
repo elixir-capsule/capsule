@@ -51,7 +51,7 @@ A "storage" is a [behaviour](https://elixirschool.com/en/lessons/advanced/behavi
 * move
 * delete
 
-Currently, capsule only supports the [Disk storage](#disk). But implementing your own storage is as easy as creating a module that quacks this way.
+Currently, capsule comes with only the [Disk storage](#disk) built in. But implementing your own storage is as easy as creating a module that quacks this way.
 
 ### upload
 
@@ -70,11 +70,11 @@ Encapsulations are the mediators between storages and uploads. They represent th
 
 Encapsulation also implements the upload protocol, which means moving a file from one storage to another is as easy as this:
 
-`%{id: "new-id", storage: "YourApp.YourStorage", size: 34100, metadata: %{}} = YourStorage.put(%{id: "/path/to/file.jpg", storage: "Capsule.Storages.Disk", size: 34100, metadata: %{}})`
+`%Encapsulation{id: "new-id", storage: "YourApp.YourStorage", size: 34100, metadata: %{}} = YourStorage.put(%{id: "/path/to/file.jpg", storage: "Capsule.Storages.Disk", size: 34100, metadata: %{}})`
 
 Note: you'll still need to take care of cleaning up the old file:
 
-`Disk.delete(%{id: "/path/to/file.jpg", storage: "Capsule.Storages.Disk", size: 34100, metadata: %{}})`
+`Disk.delete(encapsulation)`
 
 ## storages
 
