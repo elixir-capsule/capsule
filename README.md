@@ -48,7 +48,7 @@ A "storage" is a [behaviour](https://elixirschool.com/en/lessons/advanced/behavi
 
 * open
 * put
-* move
+* copy
 * delete
 
 Currently, capsule comes with only the [Disk storage](#disk) built in. But implementing your own storage is as easy as creating a module that quacks this way.

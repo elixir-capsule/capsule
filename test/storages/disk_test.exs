@@ -63,12 +63,12 @@ defmodule Capsule.Storages.DiskTest do
     end
   end
 
-  describe "move/1" do
+  describe "copy/1" do
     test "returns success tuple with data" do
       File.write!("tmp/path", "data")
 
       assert {:ok, %Encapsulation{id: "new_path"}} =
-               Disk.move(%Encapsulation{id: "/path"}, "new_path")
+               Disk.copy(%Encapsulation{id: "/path"}, "new_path")
 
       on_exit(fn -> File.rm!("tmp/new_path") end)
     end
@@ -77,7 +77,7 @@ defmodule Capsule.Storages.DiskTest do
       File.write!("tmp/path", "data")
 
       assert {:ok, %Encapsulation{id: "subdir/new_path"}} =
-               Disk.move(%Encapsulation{id: "path"}, "subdir/new_path")
+               Disk.copy(%Encapsulation{id: "path"}, "subdir/new_path")
 
       on_exit(fn -> File.rm!("tmp/subdir/new_path") end)
     end

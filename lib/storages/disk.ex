@@ -29,12 +29,12 @@ defmodule Capsule.Storages.Disk do
   end
 
   @impl Storage
-  def move(%Encapsulation{id: id} = encapsulation, path) do
+  def copy(%Encapsulation{id: id} = encapsulation, path) do
     qualified_path(path)
     |> create_path!
 
     qualified_path(id)
-    |> File.rename(qualified_path(path))
+    |> File.cp!(qualified_path(path))
     |> case do
       :ok -> {:ok, encapsulation |> Map.replace!(:id, path)}
       error_tuple -> error_tuple
