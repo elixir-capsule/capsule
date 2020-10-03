@@ -9,6 +9,7 @@ defmodule Capsule do
     storage =
       module_name
       |> String.replace_prefix("", "Elixir.")
+      |> String.replace_prefix("Elixir.Elixir", "Elixir")
       |> String.to_existing_atom()
 
     storage.open(encapsulation)

@@ -16,7 +16,22 @@ defmodule CapsuleTest do
       File.write!("tmp/name", "data")
 
       assert {:ok, "data"} =
-               Capsule.open(%Encapsulation{id: "tmp/name", storage: "Capsule.Storages.Disk"})
+               Capsule.open(%Encapsulation{
+                 id: "tmp/name",
+                 storage: "Elixir.Capsule.Storages.Disk"
+               })
+
+      on_exit(fn -> File.rm!("tmp/name") end)
+    end
+
+    test "handles storage without Elixir prefix" do
+      File.write!("tmp/name", "data")
+
+      assert {:ok, "data"} =
+               Capsule.open(%Encapsulation{
+                 id: "tmp/name",
+                 storage: "Capsule.Storages.Disk"
+               })
 
       on_exit(fn -> File.rm!("tmp/name") end)
     end
