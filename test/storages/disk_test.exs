@@ -55,11 +55,11 @@ defmodule Capsule.Storages.DiskTest do
 
   describe "open/1" do
     test "returns success tuple with data" do
-      File.write!("tmp/name", "data")
+      File.write!("tmp/path", "data")
 
-      assert {:ok, "data"} = Disk.open(%Encapsulation{id: "tmp/name"})
+      assert {:ok, "data"} = Disk.open(%Encapsulation{id: "path"})
 
-      on_exit(fn -> File.rm!("tmp/name") end)
+      on_exit(fn -> File.rm!("tmp/path") end)
     end
   end
 

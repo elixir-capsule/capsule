@@ -17,7 +17,7 @@ defmodule CapsuleTest do
 
       assert {:ok, "data"} =
                Capsule.open(%Encapsulation{
-                 id: "tmp/name",
+                 id: "name",
                  storage: "Elixir.Capsule.Storages.Disk"
                })
 
@@ -29,7 +29,7 @@ defmodule CapsuleTest do
 
       assert {:ok, "data"} =
                Capsule.open(%Encapsulation{
-                 id: "tmp/name",
+                 id: "name",
                  storage: "Capsule.Storages.Disk"
                })
 

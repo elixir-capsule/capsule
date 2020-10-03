@@ -6,7 +6,7 @@ defmodule Capsule.Storages.Disk do
   @impl Storage
   def put(upload, opts \\ []) do
     with path <- Path.join(opts[:prefix] || "/", Upload.name(upload)),
-         destination <- qualified_path(path),
+         destination <- path_in_root(path),
          true <-
            !File.exists?(destination) || opts[:force] ||
              {:error, "File already exists at upload destination"},
@@ -30,11 +30,11 @@ defmodule Capsule.Storages.Disk do
 
   @impl Storage
   def copy(%Encapsulation{id: id} = encapsulation, path) do
-    qualified_path(path)
+    path_in_root(path)
     |> create_path!
 
-    qualified_path(id)
-    |> File.cp!(qualified_path(path))
+    path_in_root(id)
+    |> File.cp!(path_in_root(path))
     |> case do
       :ok -> {:ok, encapsulation |> Map.replace!(:id, path)}
       error_tuple -> error_tuple
@@ -43,7 +43,7 @@ defmodule Capsule.Storages.Disk do
 
   @impl Storage
   def delete(%Encapsulation{id: id}) when is_binary(id) do
-    qualified_path(id)
+    path_in_root(id)
     |> File.rm()
     |> case do
       :ok -> {:ok, nil}
@@ -52,11 +52,11 @@ defmodule Capsule.Storages.Disk do
   end
 
   @impl Storage
-  def open(%Encapsulation{id: id}), do: File.read(id)
+  def open(%Encapsulation{id: id}), do: path_in_root(id) |> File.read()
 
   defp config(), do: Application.fetch_env!(:capsule, __MODULE__)
 
-  defp qualified_path(path) do
+  defp path_in_root(path) do
     config()[:root_dir]
     |> Path.join(path)
   end
