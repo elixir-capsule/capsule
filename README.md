@@ -42,7 +42,7 @@ Then to access your file:
 
 There are three main concepts in capsule: storage, upload, and the special one, "encapsulation."
 
-*Note: As of version 0.6 Capsule all built-in storages and uploads except for Encapsulation have been moved to [elixir-ecto/supplement](https://github.com/elixir_ecto/supplement).*
+*Note: As of version 0.6 Capsule all built-in storages and uploads except for Encapsulation have been moved to [elixir-capsule/supplement](https://github.com/elixir-capsule/supplement).*
 
 ### storage
 
