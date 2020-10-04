@@ -9,6 +9,7 @@ defmodule Capsule.MixProject do
       elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      dialyzer: dialyzer(),
       elixirc_paths: elixirc_paths(Mix.env()),
       name: "Capsule",
       source_url: "https://github.com/elixir-capsule/capsule",
@@ -28,6 +29,13 @@ defmodule Capsule.MixProject do
     [
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
       {:dialyxir, "~> 1.0", only: :dev, runtime: false}
+    ]
+  end
+
+  defp dialyzer do
+    [
+      plt_core_path: "priv/plts",
+      plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
     ]
   end
 

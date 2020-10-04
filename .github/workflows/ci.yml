@@ -6,13 +6,25 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    container:
-      image: bitwalker/alpine-elixir:1.10.4
-      env:
-        MIX_ENV: test
+    env:
+      MIX_ENV: test
+
+    strategy:
+      matrix:
+        elixir: [1.10.2]
+        otp: [22.2.8]
 
     steps:
     - uses: actions/checkout@v1
+    - name: Setup elixir
+      uses: actions/setup-elixir@v1
+      with:
+        elixir-version: ${{ matrix.elixir }}
+        otp-version: ${{ matrix.otp }}
+    - uses: actions/cache@v2
+      with:
+        path: deps
+        key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
     - name: Install Dependencies
       run: |
         mix local.rebar --force
@@ -31,18 +43,20 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - uses: actions/cache@v1
+    - uses: actions/cache@v2
       with:
         path: deps
-        key: dependencies-${{ hashFiles('mix.lock') }}
-    - uses: actions/cache@v1
-      with:
-        path: _build
-        key: build-${{ hashFiles('mix.lock') }}
+        key: deps-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
     - name: Install Dependencies
       run: |
         mix local.rebar --force
         mix local.hex --force
         mix deps.get
+    - name: Create plts dir
+      run: mkdir -p priv/plts
+    - uses: actions/cache@v2
+      with:
+        path: priv/plts
+        key: plts-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
     - name: Run mix dialyzer
       run: mix dialyzer
