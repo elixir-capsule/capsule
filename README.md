@@ -36,7 +36,7 @@ Then to access your file:
 {:ok, contents} = Capsule.open(file)
 ```
 
-<sup>1</sup> *See below for optional integration with Ecto.*
+<sup>1</sup> *See [integrations](integrations) for streamlined use with Ecto.*
 
 ## concepts
 
