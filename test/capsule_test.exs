@@ -13,27 +13,19 @@ defmodule CapsuleTest do
 
   describe "open/1" do
     test "opens file in storage" do
-      File.write!("tmp/name", "data")
-
-      assert {:ok, "data"} =
+      assert {:ok, _} =
                Capsule.open(%Encapsulation{
                  id: "name",
-                 storage: "Elixir.Capsule.Storages.Disk"
+                 storage: "Elixir.Capsule.Storages.Mock"
                })
-
-      on_exit(fn -> File.rm!("tmp/name") end)
     end
 
     test "handles storage without Elixir prefix" do
-      File.write!("tmp/name", "data")
-
-      assert {:ok, "data"} =
+      assert {:ok, _} =
                Capsule.open(%Encapsulation{
                  id: "name",
-                 storage: "Capsule.Storages.Disk"
+                 storage: "Capsule.Storages.Mock"
                })
-
-      on_exit(fn -> File.rm!("tmp/name") end)
     end
   end
 end
