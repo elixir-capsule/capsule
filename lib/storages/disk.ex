@@ -34,7 +34,7 @@ defmodule Capsule.Storages.Disk do
     |> create_path!
 
     path_in_root(id)
-    |> File.cp!(path_in_root(path))
+    |> File.cp(path_in_root(path))
     |> case do
       :ok -> {:ok, encapsulation |> Map.replace!(:id, path)}
       error_tuple -> error_tuple
