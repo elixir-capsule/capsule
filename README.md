@@ -70,9 +70,12 @@ Encapsulations are the mediators between storages and uploads. They represent th
 
 `%{id: "/path/to/file.jpg", storage: "YourStorage", size: 34100, metadata: %{}} = YourStorage.put(some_upload)`
 
-Encapsulation also implements the upload protocol, which means moving a file from one storage to another is as easy as this:
+Encapsulation also implements the upload protocol, which means moving a file from one storage to another is lemon-squeezy:
 
-`%Encapsulation{id: "new-id", storage: "YourApp.YourStorage", size: 34100, metadata: %{}} = YourStorage.put(%{id: "/path/to/file.jpg", storage: "Capsule.Storages.Disk", size: 34100, metadata: %{}})`
+```
+old_file = %{id: "/path/to/file.jpg", storage: "YourStorage", size: 34100, metadata: %{}}
+new_file = OtherStorage.put(old_file)`
+```
 
 Note: you'll still need to take care of cleaning up the old file:
 
