@@ -7,7 +7,7 @@ Upload and store files in Elixir apps with minimal (currently zero) dependencies
 
 :warning: Capsule is experimental and still in active development. Accepting file uploads introduces specific security vulnerabilities. Use at your own risk.
 
-## Not-so-jagged little pill
+## not-so-jagged little pill
 
 Capsule intentionally strips file storage logic down to its most composable parts and lets you decide how you want to use them. It is intentionally agnostic about versions, transformation, validations, etc. Most of the convenience offered by other libraries around these features comes at the cost of locking in dependence on specific tools and hiding complexity. Capsule puts a premium on simplicity and explicitness.
 
