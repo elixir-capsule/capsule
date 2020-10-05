@@ -11,12 +11,12 @@ defmodule Capsule.Storages.Mock do
   end
 
   @impl Storage
-  def copy(%Encapsulation{} = encapsulation, path),
+  def copy(%Encapsulation{} = encapsulation, path, _opts \\ []),
     do: {:ok, encapsulation |> Map.replace!(:id, path)}
 
   @impl Storage
-  def delete(%Encapsulation{}), do: {:ok, nil}
+  def delete(%Encapsulation{}, _opts \\ []), do: {:ok, nil}
 
   @impl Storage
-  def open(%Encapsulation{}), do: {:ok, "mock file contents"}
+  def open(%Encapsulation{}, _opts \\ []), do: {:ok, "mock file contents"}
 end
