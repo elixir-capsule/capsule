@@ -53,7 +53,7 @@ A "storage" is a [behaviour](https://elixirschool.com/en/lessons/advanced/behavi
 * copy
 * delete
 
-Implementing your own storage is as easy as creating a module that quacks this way.
+Implementing your own storage is as easy as creating a module that quacks this way. Each callback should accept an optional list of options as the last arg. Which options are supported is up to the module that implements the callbacks.
 
 ### upload
 
