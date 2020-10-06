@@ -33,7 +33,7 @@ Then to access your file:
 ```
 %Attachment{file_data: file} = attachment
 
-{:ok, contents} = Capsule.open(file)
+{:ok, contents} = Capsule.read(file)
 ```
 
 <sup>1</sup> *See [integrations](integrations) for streamlined use with Ecto.*
@@ -48,7 +48,7 @@ There are three main concepts in capsule: storage, upload, and the special one, 
 
 A "storage" is a [behaviour](https://elixirschool.com/en/lessons/advanced/behaviours/) that implements the following "file-like" callbacks:
 
-* open
+* read
 * put
 * copy
 * delete

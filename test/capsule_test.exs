@@ -11,10 +11,10 @@ defmodule CapsuleTest do
     end
   end
 
-  describe "open/1" do
-    test "opens file in storage" do
+  describe "read/1" do
+    test "reads stored file contents into memory" do
       assert {:ok, _} =
-               Capsule.open(%Encapsulation{
+               Capsule.read(%Encapsulation{
                  id: "name",
                  storage: "Elixir.Capsule.Storages.Mock"
                })
@@ -22,7 +22,7 @@ defmodule CapsuleTest do
 
     test "handles storage without Elixir prefix" do
       assert {:ok, _} =
-               Capsule.open(%Encapsulation{
+               Capsule.read(%Encapsulation{
                  id: "name",
                  storage: "Capsule.Storages.Mock"
                })
