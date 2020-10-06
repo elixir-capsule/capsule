@@ -5,13 +5,13 @@ defmodule Capsule do
     %{encapsulation | metadata: encapsulation.metadata |> Map.merge(data)}
   end
 
-  def open(%Encapsulation{storage: module_name} = encapsulation) do
+  def read(%Encapsulation{storage: module_name} = encapsulation) do
     storage =
       module_name
       |> String.replace_prefix("", "Elixir.")
       |> String.replace_prefix("Elixir.Elixir", "Elixir")
       |> String.to_existing_atom()
 
-    storage.open(encapsulation)
+    storage.read(encapsulation)
   end
 end

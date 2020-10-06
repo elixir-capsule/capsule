@@ -18,5 +18,5 @@ defmodule Capsule.Storages.Mock do
   def delete(%Encapsulation{}, _opts \\ []), do: {:ok, nil}
 
   @impl Storage
-  def open(%Encapsulation{}, _opts \\ []), do: {:ok, "mock file contents"}
+  def read(%Encapsulation{}, _opts \\ []), do: {:ok, "mock file contents"}
 end
