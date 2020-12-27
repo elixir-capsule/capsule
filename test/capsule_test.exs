@@ -27,5 +27,22 @@ defmodule CapsuleTest do
                  storage: "Capsule.Storages.Mock"
                })
     end
+
+    test "raises error on missing storage" do
+      assert_raise Capsule.Errors.InvalidStorage, fn ->
+        Capsule.read(%Encapsulation{
+          id: "name"
+        })
+      end
+    end
+
+    test "raises error on invalid storage" do
+      assert_raise Capsule.Errors.InvalidStorage, fn ->
+        Capsule.read(%Encapsulation{
+          id: "name",
+          storage: "what"
+        })
+      end
+    end
   end
 end
