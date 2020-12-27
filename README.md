@@ -68,13 +68,13 @@ A storage uses this interface to figure how to extract the file data from a give
 
 Encapsulations are the mediators between storages and uploads. They represent the result of `put`ting an upload into a storage. They contain a unique id, the name of the storage to which the file was uploaded, the size, and a map of user defined metadata.
 
-`%{id: "/path/to/file.jpg", storage: "YourStorage", size: 34100, metadata: %{}} = YourStorage.put(some_upload)`
+`{:ok, %{id: "/path/to/file.jpg", storage: "YourStorage", size: 34100, metadata: %{}}} = YourStorage.put(some_upload)`
 
 Encapsulation also implements the upload protocol, which means moving a file from one storage to another is lemon-squeezy:
 
 ```
 old_file = %{id: "/path/to/file.jpg", storage: "YourStorage", size: 34100, metadata: %{}}
-new_file = OtherStorage.put(old_file)`
+{:ok, new_file} = OtherStorage.put(old_file)`
 ```
 
 Note: you'll still need to take care of cleaning up the old file:
