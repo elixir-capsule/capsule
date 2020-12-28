@@ -83,6 +83,7 @@ Note: you'll still need to take care of cleaning up the old file:
 
 ## integrations
 
-* [Ecto](https://github.com/elixir-capsule/capsule_ecto)
+* Ecto via [CapsuleEcto](https://github.com/elixir-capsule/capsule_ecto)
+* S3 via [CapsuleSupplement](https://github.com/elixir-capsule/supplement)
 
 That's it! Happy uploading.
