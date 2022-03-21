@@ -4,10 +4,24 @@ defmodule CapsuleTest do
 
   alias Capsule.Encapsulation
 
-  describe "add_metadata/2" do
+  describe "add_metadata/2 with map" do
     test "merges data into existing metadata" do
       assert %{metadata: %{a: 1, b: 2}} =
                Capsule.add_metadata(%Encapsulation{metadata: %{a: 1}}, %{b: 2})
+    end
+  end
+
+  describe "add_metadata/2 with list" do
+    test "merges data into existing metadata" do
+      assert %{metadata: %{a: 1, b: 2}} =
+               Capsule.add_metadata(%Encapsulation{metadata: %{a: 1}}, b: 2)
+    end
+  end
+
+  describe "add_metadata/3" do
+    test "merges val into existing metadata at given key" do
+      assert %{metadata: %{a: 1, b: 2}} =
+               Capsule.add_metadata(%Encapsulation{metadata: %{a: 1}}, :b, 2)
     end
   end
 

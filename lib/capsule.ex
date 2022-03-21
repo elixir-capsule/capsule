@@ -2,9 +2,14 @@ defmodule Capsule do
   alias Capsule.Encapsulation
   alias Capsule.Errors.InvalidStorage
 
-  def add_metadata(%Encapsulation{} = encapsulation, data) do
-    %{encapsulation | metadata: encapsulation.metadata |> Map.merge(data)}
-  end
+  def add_metadata(%Encapsulation{} = encapsulation, key, val),
+    do: add_metadata(encapsulation, %{key => val})
+
+  def add_metadata(%Encapsulation{} = encapsulation, data) when is_list(data),
+    do: add_metadata(encapsulation, Enum.into(data, %{}))
+
+  def add_metadata(%Encapsulation{} = encapsulation, data),
+    do: %{encapsulation | metadata: encapsulation.metadata |> Map.merge(data)}
 
   def read(%Encapsulation{storage: module_name} = encapsulation) when is_binary(module_name) do
     storage =
