@@ -11,6 +11,16 @@ defmodule Capsule do
   def add_metadata(%Encapsulation{} = encapsulation, data),
     do: %{encapsulation | metadata: encapsulation.metadata |> Map.merge(data)}
 
+  def storage!(%Encapsulation{storage: module_name}) when is_binary(module_name) do
+    module_name
+    |> String.replace_prefix("", "Elixir.")
+    |> String.replace_prefix("Elixir.Elixir", "Elixir")
+    |> String.to_existing_atom()
+  rescue
+    ArgumentError -> raise InvalidStorage
+  end
+
+  @deprecated "Use Capsule.storage!/1 and Capsule.Storage.delete/1"
   def read(%Encapsulation{storage: module_name} = encapsulation) when is_binary(module_name) do
     storage =
       try do

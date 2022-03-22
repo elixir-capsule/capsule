@@ -7,7 +7,7 @@ defprotocol Capsule.Upload do
 end
 
 defimpl Capsule.Upload, for: Capsule.Encapsulation do
-  defdelegate contents(encapsulation), to: Capsule, as: :read
+  def contents(cap), do: Capsule.storage!(cap).read(cap)
 
   def name(%{metadata: %{name: name}}), do: name
   def name(%{id: id}), do: id
