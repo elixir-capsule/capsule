@@ -21,6 +21,7 @@ jobs:
       with:
         elixir-version: ${{ matrix.elixir }}
         otp-version: ${{ matrix.otp }}
+        experimental-otp: true
     - uses: actions/cache@v2
       with:
         path: deps
