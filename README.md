@@ -36,7 +36,7 @@ Then to access the file:
 {:ok, contents} = Disk.read(file)
 ```
 
-<sup>1</sup> *See [integrations](integrations) for streamlined use with Ecto.*
+<sup>1</sup> *See [integrations](#integrations) for streamlined use with Ecto.*
 
 ## concepts
 
