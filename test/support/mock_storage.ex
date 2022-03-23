@@ -5,7 +5,7 @@ defmodule Capsule.Storages.Mock do
 
   @impl Storage
   def put(_upload, opts \\ []) do
-    encapsulation = %Encapsulation{id: opts[:id], size: opts[:size] || 0, storage: __MODULE__}
+    encapsulation = %Encapsulation{id: opts[:id], storage: __MODULE__}
 
     {:ok, encapsulation}
   end
