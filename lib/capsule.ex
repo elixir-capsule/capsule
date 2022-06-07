@@ -20,7 +20,7 @@ defmodule Capsule do
     ArgumentError -> raise InvalidStorage
   end
 
-  @deprecated "Use Capsule.storage!/1 and Capsule.Storage.delete/1"
+  @deprecated "Use Capsule.storage!/1 and Capsule.Storage.read"
   def read(%Encapsulation{storage: module_name} = encapsulation) when is_binary(module_name) do
     storage =
       try do
@@ -34,6 +34,7 @@ defmodule Capsule do
 
     storage.read(encapsulation)
   end
-
+  
+  @deprecated "Use Capsule.storage!/1 and Capsule.Storage.read"
   def read(encapsulation), do: %Encapsulation{encapsulation | storage: ""} |> read()
 end
