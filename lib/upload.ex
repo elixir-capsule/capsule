@@ -6,7 +6,7 @@ defprotocol Capsule.Upload do
   def name(upload)
 end
 
-defimpl Capsule.Upload, for: Capsule.Encapsulation do
+defimpl Capsule.Upload, for: Capsule.Locator do
   def contents(cap), do: Capsule.storage!(cap).read(cap)
 
   def name(%{metadata: %{name: name}}), do: name

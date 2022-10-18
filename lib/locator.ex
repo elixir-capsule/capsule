@@ -1,4 +1,4 @@
-defmodule Capsule.Encapsulation do
+defmodule Capsule.Locator do
   defstruct [:id, :storage, metadata: %{}]
 
   @type t() :: %__MODULE__{

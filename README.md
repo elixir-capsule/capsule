@@ -40,9 +40,9 @@ Then to access the file:
 
 ## concepts
 
-There are three main concepts in capsule: storage, upload, and the special one, "encapsulation."
+There are three main concepts in capsule: storage, upload, and locator
 
-*Note: As of version 0.6 Capsule all built-in storages and uploads except for Encapsulation have been moved to [elixir-capsule/supplement](https://github.com/elixir-capsule/supplement).*
+*Note: As of version 0.6 Capsule all built-in storages and uploads except for Locator have been moved to [elixir-capsule/supplement](https://github.com/elixir-capsule/supplement).*
 
 ### storage
 
@@ -61,15 +61,15 @@ Upload is a [protocol](https://elixir-lang.org/getting-started/protocols.html) c
 * contents
 * name
 
-A storage uses this interface to figure how to extract the file data from a given struct and how to identify it. See `Capsule.Encapsulation` for an example of how this protocol can be implemented.
+A storage uses this interface to figure how to extract the file data from a given struct and how to identify it. See `Capsule.Locator` for an example of how this protocol can be implemented.
 
-### encapsulation
+### locator
 
-Encapsulations are the mediators between storages and uploads. They represent the result of `put`ting an upload into a storage. They contain a unique id, the name of the storage to which the file was uploaded, and a map of user defined metadata.
+Locators are the mediators between storages and uploads. They represent where an uploaded file was stored so it can be retrieved. They contain a unique id, the name of the storage to which the file was uploaded, and a map of user defined metadata.
 
 `{:ok, %{id: "/path/to/file.jpg", storage: "YourStorage", metadata: %{}}} = YourStorage.put(some_upload)`
 
-Encapsulation also implements the upload protocol, which means moving a file from one storage to another is lemon-squeezy:
+Locator also implements the upload protocol, which means moving a file from one storage to another is lemon-squeezy:
 
 ```
 old_file = %{id: "/path/to/file.jpg", storage: "YourStorage", metadata: %{}}
@@ -78,7 +78,7 @@ old_file = %{id: "/path/to/file.jpg", storage: "YourStorage", metadata: %{}}
 
 Note: you'll still need to take care of cleaning up the old file:
 
-`YourStorage.delete(encapsulation)`
+`YourStorage.delete(locator)`
 
 ## integrations
 
