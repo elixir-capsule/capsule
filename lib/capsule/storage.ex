@@ -1,9 +1,10 @@
 defmodule Capsule.Storage do
-  alias Capsule.{Upload, Locator}
+  alias Capsule.Upload
 
   @type option :: {atom(), any()}
+  @type locator_id :: String.t()
 
-  @callback read(Locator.t(), [option]) :: {:ok, binary()} | {:error, String.t()}
-  @callback put(Upload.t(), [option]) :: {:ok, Locator.t()} | {:error, String.t()}
-  @callback delete(Locator.t(), [option]) :: :ok | {:error, String.t()}
+  @callback read(locator_id, [option]) :: {:ok, binary()} | {:error, String.t()}
+  @callback put(Upload.t(), [option]) :: {:ok, locator_id} | {:error, String.t()}
+  @callback delete(locator_id, [option]) :: :ok | {:error, String.t()}
 end

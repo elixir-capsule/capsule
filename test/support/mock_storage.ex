@@ -1,18 +1,16 @@
 defmodule Capsule.Storages.Mock do
-  alias Capsule.{Storage, Locator}
+  alias Capsule.Storage
 
   @behaviour Storage
 
   @impl Storage
-  def put(_upload, opts \\ []) do
-    locator = %Locator{id: opts[:id], storage: __MODULE__}
-
-    {:ok, locator}
+  def put(_id, opts \\ []) do
+    {:ok, opts[:id]}
   end
 
   @impl Storage
-  def delete(%Locator{}, _opts \\ []), do: {:ok, nil}
+  def delete(_id, _opts \\ []), do: {:ok, nil}
 
   @impl Storage
-  def read(%Locator{}, _opts \\ []), do: {:ok, "mock file contents"}
+  def read(_id, _opts \\ []), do: {:ok, "mock file contents"}
 end
