@@ -5,7 +5,7 @@ defmodule Capsule.Storages.Mock do
 
   @impl Storage
   def put(_id, opts \\ []) do
-    {:ok, opts[:id]}
+    {:ok, Keyword.get(opts, :id, to_string(:erlang.ref_to_list(:erlang.make_ref())))}
   end
 
   @impl Storage

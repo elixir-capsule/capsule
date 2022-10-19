@@ -10,7 +10,6 @@ defmodule Capsule.LocatorTest do
     end
   end
 
-
   describe "new/1 with map with required string keys" do
     test "returns struct" do
       assert {:ok, %Locator{}} = Locator.new(%{"id" => "fake", "storage" => "Fake"})

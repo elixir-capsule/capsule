@@ -38,7 +38,7 @@ Then to access the file:
 
 ## concepts
 
-There are three main concepts in capsule: storage, upload, and locator
+There are four main concepts in capsule: storage, upload, and locator, and uploader.
 
 *Note: As of version 0.6 Capsule all built-in storages and uploads except for Locator have been moved to [elixir-capsule/supplement](https://github.com/elixir-capsule/supplement).*
 
@@ -75,6 +75,32 @@ old_file_data = %Locator{id: "/path/to/file.jpg", storage: "YourStorage", metada
 Note: you'll still need to take care of cleaning up the old file:
 
 `YourStorage.delete(old_file_data.id)`
+
+### uploader
+
+This helper was added in order to support DRYing up storage access. In most apps, there are certain types of assets that will be uploaded and handled in a similar, if not the same way, if only when it comes to where they are stored. You can `use` the uploader to codify the handling for specific types of assets.
+
+```
+defmodule AvatarUploader do
+  use Capsule.Uploader, storages: [cache: Disk, store: S3]
+
+  def storage_options(upload, :cache, opts) do
+    Keyword.put(opts, :prefix, "cache/#{Date.utc_today()}")
+  end
+
+  def storage_options(upload, :store, opts) do
+    opts
+    |> Keyword.put(:prefix, "users/#{opts[:user_id]}/avatar")
+    |> Keyword.drop(:user_id)
+  end
+
+  def build_metadata(upload, :store, _), do: [uploaded_at: DateTime.utc_now()]
+end
+```
+
+Then you can get the files where they need to be without constructing all the options everywhere they might be uploaded: `AvatarUploader.store(upload, :store, user_id: 1)`
+
+Note: as this example demonstrates, the function can receive arbitrary data and use it to customize how it builds the storage options before they are passed on.
 
 ## integrations
 
