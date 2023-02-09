@@ -11,7 +11,7 @@ Upload and store files in Elixir apps with minimal (currently zero) dependencies
 
 Capsule intentionally strips file storage logic down to its most composable parts and lets you decide how you want to use them. It is intentionally agnostic about versions, transformation, validations, etc. Most of the convenience offered by other libraries around these features comes at the cost of locking in dependence on specific tools and hiding complexity. Capsule puts a premium on simplicity and explicitness.
 
-So what does it do? Here's a theoretical example of a use case with an Ecto<sup>1</sup> schema, using a `Disk` storage implementation, which saves the file onto a local file system and extracts some metadata before attaching the file:
+So what does it do? Here's a theoretical example of a use case with an Ecto<sup>1</sup> schema, using a `Disk` storage implementation, which saves the file onto a local file system, storing the location with some additional metadata:
 
 ```
   def create_attachment(url, user) do
@@ -19,10 +19,8 @@ So what does it do? Here's a theoretical example of a use case with an Ecto<sup>
     |> Multi.run(:upload, fn _, _ ->
       Disk.put(URI.parse(url), prefix: :crypto.hash(:md5, [user.id, url]) |> Base.encode16())
     end)
-    |> Multi.insert(:attachment, fn %{upload: file_data} ->
-      Attachment.changeset(%Attachment{}, %{
-        file_data: Capsule.add_metadata(file_data, :user, user.name)
-      })
+    |> Multi.insert(:attachment, fn %{upload: file_id} ->
+      %Attachment{file_data: %{id: file_id, storage: Disk, metadata: %{source: url}}
     end)
     |> Repo.transaction()
   end
@@ -33,7 +31,7 @@ Then to access the file:
 ```
 %Attachment{file_data: file} = attachment
 
-{:ok, contents} = Disk.read(file)
+{:ok, contents} = Disk.read(file.id)
 ```
 
 <sup>1</sup> *See [integrations](#integrations) for streamlined use with Ecto.*
@@ -67,18 +65,16 @@ A storage uses this interface to figure how to extract the file data from a give
 
 Locators are the mediators between storages and uploads. They represent where an uploaded file was stored so it can be retrieved. They contain a unique id, the name of the storage to which the file was uploaded, and a map of user defined metadata.
 
-`{:ok, %{id: "/path/to/file.jpg", storage: "YourStorage", metadata: %{}}} = YourStorage.put(some_upload)`
-
 Locator also implements the upload protocol, which means moving a file from one storage to another is lemon-squeezy:
 
 ```
-old_file = %{id: "/path/to/file.jpg", storage: "YourStorage", metadata: %{}}
-{:ok, new_file} = OtherStorage.put(old_file)`
+old_file_data = %Locator{id: "/path/to/file.jpg", storage: "YourStorage", metadata: %{}}
+{:ok, new_id} = OtherStorage.put(old_file_data)`
 ```
 
 Note: you'll still need to take care of cleaning up the old file:
 
-`YourStorage.delete(locator)`
+`YourStorage.delete(old_file_data.id)`
 
 ## integrations
 
