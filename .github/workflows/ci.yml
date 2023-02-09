@@ -11,17 +11,16 @@ jobs:
 
     strategy:
       matrix:
-        elixir: [1.10.2]
-        otp: [22.2.8]
+        elixir: ["1.13.x"]
+        otp: ["24.x"]
 
     steps:
     - uses: actions/checkout@v1
-    - name: Setup elixir
-      uses: actions/setup-elixir@v1
+    - name: Set up Elixir
+      uses: erlef/setup-beam@v1
       with:
         elixir-version: ${{ matrix.elixir }}
         otp-version: ${{ matrix.otp }}
-        experimental-otp: true
     - uses: actions/cache@v2
       with:
         path: deps
