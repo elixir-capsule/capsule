@@ -23,7 +23,7 @@ defmodule CapsuleTest do
     end
   end
 
-  describe "storage!/1" do
+  describe "storage!/1 with binary storage" do
     test "returns storage module" do
       assert Capsule.Storages.Mock =
                Capsule.storage!(%Locator{storage: "Elixir.Capsule.Storages.Mock"})
@@ -37,6 +37,17 @@ defmodule CapsuleTest do
       assert_raise Capsule.Errors.InvalidStorage, fn ->
         Capsule.storage!(%Locator{storage: "what"})
       end
+    end
+  end
+
+  describe "storage!/1 with atom storage" do
+    test "returns storage module" do
+      assert Capsule.Storages.Mock =
+               Capsule.storage!(%Locator{storage: Capsule.Storages.Mock})
+    end
+
+    test "returns module" do
+      assert Capsule.Storages.Mock = Capsule.storage!(%Locator{storage: "Capsule.Storages.Mock"})
     end
   end
 end

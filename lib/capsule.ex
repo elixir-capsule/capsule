@@ -19,4 +19,6 @@ defmodule Capsule do
   rescue
     ArgumentError -> raise InvalidStorage
   end
+
+  def storage!(%Locator{storage: module_name}) when is_atom(module_name), do: module_name
 end
