@@ -21,4 +21,12 @@ defmodule Capsule.LocatorTest do
       assert {:error, _} = Locator.new(%{id: "fake"})
     end
   end
+
+  describe "new! with nil id" do
+    test "raises error" do
+      assert_raise(Capsule.Errors.InvalidLocator, fn ->
+        Locator.new!(%{"id" => nil})
+      end)
+    end
+  end
 end
