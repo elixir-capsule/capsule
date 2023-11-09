@@ -42,8 +42,7 @@ defmodule CapsuleTest do
 
   describe "storage!/1 with atom storage" do
     test "returns storage module" do
-      assert Capsule.Storages.Mock =
-               Capsule.storage!(%Locator{storage: Capsule.Storages.Mock})
+      assert Capsule.Storages.Mock = Capsule.storage!(%Locator{storage: Capsule.Storages.Mock})
     end
 
     test "returns module" do
