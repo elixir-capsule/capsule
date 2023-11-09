@@ -10,6 +10,12 @@ defmodule Capsule.LocatorTest do
     end
   end
 
+  describe "new/1 with map with atom storage" do
+    test "returns struct" do
+      assert {:ok, %Locator{}} = Locator.new(%{id: "fake", storage: Capsule.Storages.Mock})
+    end
+  end
+
   describe "new/1 with map with required atom keys" do
     test "returns struct" do
       assert {:ok, %Locator{}} = Locator.new(%{id: "fake", storage: "Fake"})
@@ -19,6 +25,18 @@ defmodule Capsule.LocatorTest do
   describe "new/1 with map missing keys" do
     test "returns struct" do
       assert {:error, _} = Locator.new(%{id: "fake"})
+    end
+  end
+
+  describe "new/1 with map with invalid id type" do
+    test "returns error" do
+      assert {:error, _} = Locator.new(%{id: 5, storage: "fake"})
+    end
+  end
+
+  describe "new/1 with map with nil storage" do
+    test "returns error" do
+      assert {:error, _} = Locator.new(%{id: "fake", storage: nil})
     end
   end
 
