@@ -4,6 +4,13 @@ defmodule Capsule.LocatorTest do
 
   alias Capsule.Locator
 
+  describe "new/1 with keyword list" do
+    test "returns struct" do
+      assert {:ok, %Locator{}} = Locator.new(id: "fake", storage: "Fake")
+    end
+  end
+
+
   describe "new/1 with map with required string keys" do
     test "returns struct" do
       assert {:ok, %Locator{}} = Locator.new(%{"id" => "fake", "storage" => "Fake"})

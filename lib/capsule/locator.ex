@@ -7,12 +7,15 @@ defmodule Capsule.Locator do
           metadata: map()
         }
 
-  def new!(attrs) when is_map(attrs) do
+  def new!(attrs) do
     case new(attrs) do
       {:ok, locator} -> locator
       {:error, error} -> raise(Capsule.Errors.InvalidLocator, error)
     end
   end
+
+  def new(attrs) when is_list(attrs),
+    do: attrs |> Map.new() |> new()
 
   def new(map = %{"id" => id, "storage" => storage}),
     do: new(%{id: id, storage: storage, metadata: Map.get(map, "metadata")})
