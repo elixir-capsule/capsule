@@ -22,11 +22,15 @@ defmodule Capsule.Uploader do
         |> storage.put(build_options(upload, storage_key, opts))
         |> case do
           {:ok, id} ->
-            locator = Capsule.add_metadata(%Locator{id: id, storage: storage}, build_metadata(upload, storage_key, opts))
+            locator =
+              Capsule.add_metadata(
+                Locator.new!(id: id, storage: storage),
+                build_metadata(upload, storage_key, opts)
+              )
 
             {:ok, locator}
-          error_tuple ->
 
+          error_tuple ->
             error_tuple
         end
       end
@@ -45,8 +49,11 @@ defmodule Capsule.Uploader do
         end
         |> Keyword.fetch(storage)
         |> case do
-          {:ok, storage} -> storage
-          _ -> raise "#{storage} not found in #{__MODULE__} storages. Available: #{inspect(Keyword.keys(@storages))}"
+          {:ok, storage} ->
+            storage
+
+          _ ->
+            raise "#{storage} not found in #{__MODULE__} storages. Available: #{inspect(Keyword.keys(@storages))}"
         end
       end
 
