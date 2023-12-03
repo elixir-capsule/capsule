@@ -82,14 +82,14 @@ This helper was added in order to support DRYing up storage access. In most apps
 defmodule AvatarUploader do
   use Capsule.Uploader, storages: [cache: Disk, store: S3]
 
-  def storage_options(upload, :cache, opts) do
+  def build_options(upload, :cache, opts) do
     Keyword.put(opts, :prefix, "cache/#{Date.utc_today()}")
   end
 
-  def storage_options(upload, :store, opts) do
+  def build_options(upload, :store, opts) do
     opts
     |> Keyword.put(:prefix, "users/#{opts[:user_id]}/avatar")
-    |> Keyword.drop(:user_id)
+    |> Keyword.drop([:user_id])
   end
 
   def build_metadata(upload, :store, _), do: [uploaded_at: DateTime.utc_now()]
