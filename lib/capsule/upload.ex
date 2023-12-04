@@ -7,7 +7,7 @@ defprotocol Capsule.Upload do
 
   @spec path(struct()) :: String.t() | nil
   def path(upload)
-end
+end 
 
 defimpl Capsule.Upload, for: Capsule.Locator do
   def contents(locator), do: Capsule.storage!(locator).read(locator.id)
