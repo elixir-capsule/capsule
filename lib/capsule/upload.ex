@@ -14,4 +14,6 @@ defimpl Capsule.Upload, for: Capsule.Locator do
 
   def name(%{metadata: %{name: name}}), do: name
   def name(%{id: id}), do: id
+
+  def path(%{} = locator), do: Capsule.storage!(locator).path(locator)
 end
