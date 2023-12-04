@@ -4,6 +4,9 @@ defprotocol Capsule.Upload do
 
   @spec name(struct()) :: String.t()
   def name(upload)
+
+  @spec path(struct()) :: String.t() | nil
+  def path(upload)
 end
 
 defimpl Capsule.Upload, for: Capsule.Locator do
