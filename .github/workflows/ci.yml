@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: bitwalker/alpine-elixir:1.10.4
+      image: bitwalker/alpine-elixir:1.13
 
     steps:
     - uses: actions/checkout@v1

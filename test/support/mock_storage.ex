@@ -13,4 +13,8 @@ defmodule Capsule.Storages.Mock do
 
   @impl Storage
   def read(_id, _opts \\ []), do: {:ok, "mock file contents"}
+
+  @impl Storage
+  def stream!(_id, _opts \\ []),
+    do: "mock file contents" |> StringIO.open() |> elem(1) |> IO.stream(:line)
 end
