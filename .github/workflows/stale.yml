@@ -21,7 +21,6 @@ jobs:
     - uses: actions/stale@v5
       with:
         days-before-stale: 30
-        days-before-issue-stale: -1
         ignore-updates: true
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         stale-pr-message: 'PR has gone cold and will be closed without further activity'
