@@ -5,7 +5,7 @@ Upload and store files in Elixir apps with minimal (currently zero) dependencies
 [![hex package](https://img.shields.io/hexpm/v/capsule.svg)](https://hex.pm/packages/capsule)
 [![CI status](https://github.com/elixir-capsule/capsule/workflows/CI/badge.svg)](https://github.com/elixir-capsule/capsule/actions)
 
-:warning: Although I have been using it in production for over a year without issue, Capsule is experimental and still in active development. Accepting file uploads introduces specific security vulnerabilities. Use at your own risk.
+:warning: Although it has been in production use since 2021 without significant issues, Capsule remains in active development. Accepting file uploads introduces specific security vulnerabilities. Use at your own risk.
 
 ## Concepts
 
