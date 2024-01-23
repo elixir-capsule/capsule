@@ -7,7 +7,7 @@ name: Mark stale issues and pull requests
 
 on:
   schedule:
-  - cron: '36 3 * * *'
+  - cron: '19 21 * * *'
 
 jobs:
   stale:
@@ -21,6 +21,4 @@ jobs:
     - uses: actions/stale@v5
       with:
         days-before-stale: 30
-        ignore-updates: true
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-pr-message: 'PR has gone cold and will be closed without further activity'
