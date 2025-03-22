@@ -4,6 +4,17 @@ defmodule Capsule.Storages.Mock do
   @behaviour Storage
 
   @impl Storage
+  def stat(_id, _opts \\ []) do
+    {:ok,
+     %{
+       size: 1000,
+       mime_type: "text/plain",
+       created_at: DateTime.utc_now(),
+       updated_at: DateTime.utc_now()
+     }}
+  end
+
+  @impl Storage
   def put(_id, opts \\ []) do
     {:ok, Keyword.get(opts, :id, to_string(:erlang.ref_to_list(:erlang.make_ref())))}
   end
