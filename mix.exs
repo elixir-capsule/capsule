@@ -5,7 +5,7 @@ defmodule Capsule.MixProject do
     [
       app: :capsule,
       description: "Uploaded file management for Elixir",
-      version: "0.10.0",
+      version: "1.0.0",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
