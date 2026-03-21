@@ -22,7 +22,7 @@ So what does it do? Here's a theoretical example of a use case with an Ecto<sup>
       YourStorage.put(upload, prefix: :crypto.hash(:md5, [user.id, url]) |> Base.encode16())
     end)
     |> Multi.insert(:attachment, fn %{upload: file_id} ->
-      %Attachment{file_data: Locator.new!(id: file_id, storage: YourStorage, metadata: %{type: "document"})
+      %Attachment{file_data: Locator.new!(id: file_id, storage: YourStorage, metadata: %{type: "document"})}
     end)
     |> Repo.transaction()
   end
@@ -33,7 +33,7 @@ Then to access the file:
 ```
 %Attachment{file_data: file} = attachment
 
-{:ok, contents} = Disk.read(file.id)
+{:ok, contents} = Capsule.storage!(file).read(file.id)
 ```
 
 <sup>1</sup> *See [integrations](#integrations) for streamlined use with Ecto.*
@@ -66,7 +66,7 @@ Locator also implements the upload protocol, which means moving a file from one 
 
 ```
 old_file_data = %Locator{id: "/path/to/file.jpg", storage: Disk, metadata: %{}}
-{:ok, new_id} = S3.put(old_file_data)`
+{:ok, new_id} = S3.put(old_file_data)
 ```
 
 Note: always remember to take care of cleaning up the old file as Capsule *never* automatically removes files:
