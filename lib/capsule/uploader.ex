@@ -1,4 +1,9 @@
 defmodule Capsule.Uploader do
+  @moduledoc """
+  Defines the behaviour for uploaders and provides a `use` macro for generating
+  default implementations.
+  """
+
   alias Capsule.Locator
 
   @type storage :: atom()
@@ -8,6 +13,15 @@ defmodule Capsule.Uploader do
   @callback build_options(any(), storage, [option]) :: [option]
   @callback build_metadata(Locator.t(), storage, [option]) :: Keyword.t() | map()
 
+  @doc """
+  Generates default implementations of `store/3`, `build_options/3`, and `build_metadata/3`.
+
+  ## Options
+
+    * `:storages` - required. A keyword list mapping storage keys to storage modules, or an MFA
+      tuple `{module, function, args}` that returns such a list at runtime.
+
+  """
   defmacro __using__(opts) do
     quote bind_quoted: [opts: opts] do
       @behaviour Capsule.Uploader

@@ -1,4 +1,11 @@
 defmodule Capsule.Storage do
+  @moduledoc """
+  Defines the behaviour for storage backends.
+
+  Implement this behaviour to create a storage adapter that can read, write,
+  stream, and delete files.
+  """
+
   alias Capsule.Upload
 
   @type option :: {atom(), any()}
