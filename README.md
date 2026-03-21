@@ -5,8 +5,6 @@ Upload and store files in Elixir apps with minimal (currently zero) dependencies
 [![hex package](https://img.shields.io/hexpm/v/capsule.svg)](https://hex.pm/packages/capsule)
 [![CI status](https://github.com/elixir-capsule/capsule/workflows/CI/badge.svg)](https://github.com/elixir-capsule/capsule/actions)
 
-:warning: Although it has been in production use since 2021 without significant issues, Capsule remains in active development. Accepting file uploads introduces specific security vulnerabilities. Use at your own risk.
-
 ## Concepts
 
 Capsule intentionally strips file storage logic down to its most composable parts and lets you decide how you want to use them. These components are: [storage](#storage), [upload](#upload), [locator](#locator), and optionally, [uploader](#uploader), which provides a more ergonomic API for the other 3.
