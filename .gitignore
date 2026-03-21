@@ -27,3 +27,6 @@ capsule-*.tar
 /priv/
 
 /archives
+
+# Local environment variables (secrets)
+.env
