@@ -36,8 +36,11 @@ defmodule Capsule.Locator do
   def new(attrs) when is_list(attrs),
     do: attrs |> Map.new() |> new()
 
-  def new(map = %{"id" => id, "storage" => storage}),
-    do: new(%{id: id, storage: storage, metadata: Map.get(map, "metadata")})
+  def new(%{"id" => id, "storage" => storage, "metadata" => metadata}) when is_map(metadata),
+    do: new(%{id: id, storage: storage, metadata: metadata})
+
+  def new(%{"id" => id, "storage" => storage}),
+    do: new(%{id: id, storage: storage})
 
   def new(map) when is_map_key(map, :id) and is_map_key(map, :storage) do
     __MODULE__

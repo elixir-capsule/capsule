@@ -16,6 +16,20 @@ defmodule Capsule.LocatorTest do
     end
   end
 
+  describe "new/1 with map with string metadata" do
+    test "keeps the metadata" do
+      assert {:ok, %Locator{metadata: %{"key" => "value"}}} =
+               Locator.new(%{"id" => "fake", "storage" => "Fake", "metadata" => %{"key" => "value"}})
+    end
+  end
+
+  describe "new/1 with map with nil metadata" do
+    test "defaults metadata to an empty map" do
+      assert {:ok, %Locator{metadata: %{}}} =
+               Locator.new(%{"id" => "fake", "storage" => "Fake", "metadata" => nil})
+    end
+  end
+
   describe "new/1 with map with atom storage" do
     test "returns struct" do
       assert {:ok, %Locator{}} = Locator.new(%{id: "fake", storage: Capsule.Storages.Mock})
